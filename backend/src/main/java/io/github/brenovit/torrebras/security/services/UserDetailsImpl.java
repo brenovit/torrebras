@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.github.brenovit.torrebras.models.User;
+import io.github.brenovit.torrebras.models.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -32,15 +32,15 @@ public class UserDetailsImpl implements UserDetails{
 	private Collection<? extends GrantedAuthority> authorities;
 	
 
-	public static UserDetails builder(User user) {
-		List<GrantedAuthority> authorities = user.getPermissions().stream()
+	public static UserDetails builder(Usuario user) {
+		List<GrantedAuthority> authorities = user.getPermissoes().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getPermission().name()))
 				.collect(Collectors.toList());
 		return new UserDetailsImpl(
 				user.getId(),
 				user.getUsername(), 
 				user.getEmail(), 
-				user.getPassword(), 
+				user.getSenha(), 
 				authorities);
 	}
 

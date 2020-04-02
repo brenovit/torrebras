@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.brenovit.torrebras.models.Curso;
-import io.github.brenovit.torrebras.repository.CursoRepository;
+import io.github.brenovit.torrebras.payload.funcao.FuncaoRequest;
+import io.github.brenovit.torrebras.payload.funcao.FuncaoResponse;
+import io.github.brenovit.torrebras.service.FuncaoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,32 +26,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FuncaoRestController {
 
-	private final CursoRepository repository;
+	private final FuncaoService service;
 		
 	@GetMapping	
-	public ResponseEntity<List<Curso>> findAll() {
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<FuncaoResponse>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}		
 
 	@PostMapping
-	public ResponseEntity<Curso> create(@Valid @RequestBody Curso product) {
-		return ResponseEntity.ok(repository.save(product));
+	public ResponseEntity<FuncaoResponse> create(@Valid @RequestBody FuncaoRequest funcao) {
+		return ResponseEntity.ok(service.save(funcao));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Curso> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(repository.findById(id).get());
+	public ResponseEntity<FuncaoResponse> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(service.findById(id));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Curso> update(@PathVariable Long id, @Valid @RequestBody Curso curso) {
-		curso.setId(id);
-		return ResponseEntity.ok(repository.save(curso));
+	public ResponseEntity<FuncaoResponse> update(@PathVariable Long id, @Valid @RequestBody FuncaoRequest funcao) {
+		return ResponseEntity.ok(service.update(id,funcao));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }

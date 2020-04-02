@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import io.github.brenovit.torrebras.exception.ApplicationException;
 import io.github.brenovit.torrebras.models.EPermission;
 import io.github.brenovit.torrebras.models.Permission;
-import io.github.brenovit.torrebras.models.User;
+import io.github.brenovit.torrebras.models.Usuario;
 import io.github.brenovit.torrebras.payload.auth.SignInRequest;
 import io.github.brenovit.torrebras.payload.auth.SignInResponse;
 import io.github.brenovit.torrebras.payload.auth.SignUpRequest;
@@ -72,9 +72,9 @@ public class AuthService extends InternalService {
 			throw new ApplicationException(ErrorCode.USER_ALREADY_REGISTERED);
 		}
 
-		User user = new User().setUsername(request.getUsername()).setEmail(request.getEmail())
-				.setPassword(encoder.encode(request.getPassword()));
-		User loggedUser = getLoggedUser();
+		Usuario user = new Usuario().setUsername(request.getUsername()).setEmail(request.getEmail())
+				.setSenha(encoder.encode(request.getPassword()));
+		Usuario loggedUser = getLoggedUser();
 
 		Set<String> strRoles = request.getRole();
 
@@ -112,7 +112,7 @@ public class AuthService extends InternalService {
 			roles.add(userRole);
 		}
 
-		user.setPermissions(roles);
+		user.setPermissoes(roles);
 		userRepository.save(user);
 	}
 }

@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.brenovit.torrebras.models.Colaborador;
-import io.github.brenovit.torrebras.repository.ColaboradorRepository;
+import io.github.brenovit.torrebras.payload.colaborador.ColaboradorRequest;
+import io.github.brenovit.torrebras.payload.colaborador.ColaboradorResponse;
+import io.github.brenovit.torrebras.service.ColaboradorService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,32 +26,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ColaboradorRestController {
 
-	private final ColaboradorRepository repository;
+	private final ColaboradorService service;
 		
 	@GetMapping	
-	public ResponseEntity<List<Colaborador>> findAll() {
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<ColaboradorResponse>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}		
 
 	@PostMapping
-	public ResponseEntity<Colaborador> create(@Valid @RequestBody Colaborador product) {
-		return ResponseEntity.ok(repository.save(product));
+	public ResponseEntity<ColaboradorResponse> create(@Valid @RequestBody ColaboradorRequest colaborador) {
+		return ResponseEntity.ok(service.save(colaborador));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Colaborador> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(repository.findById(id).get());
+	public ResponseEntity<ColaboradorResponse> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(service.findById(id));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Colaborador> update(@PathVariable Long id, @Valid @RequestBody Colaborador curso) {
-		curso.setId(id);
-		return ResponseEntity.ok(repository.save(curso));
+	public ResponseEntity<ColaboradorResponse> update(@PathVariable Long id, @Valid @RequestBody ColaboradorRequest colaborador) {
+		return ResponseEntity.ok(service.update(id, colaborador));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }

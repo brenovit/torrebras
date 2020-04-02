@@ -24,26 +24,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CursoColaboradorRestController {
 
-	private final CursoColaboradorRepository repository;
+	private final CursoColaboradorRepository service;
 		
 	@GetMapping	
 	public ResponseEntity<List<CursoColaborador>> findAll() {
-		return ResponseEntity.ok(repository.findAll());
+		return ResponseEntity.ok(service.findAll());
 	}		
 
 	@PostMapping
 	public ResponseEntity<CursoColaborador> create(@Valid @RequestBody CursoColaborador product) {
-		return ResponseEntity.ok(repository.save(product));
+		return ResponseEntity.ok(service.save(product));
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<CursoColaborador> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(repository.findById(id).get());
+		return ResponseEntity.ok(service.findById(id).get());
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 }

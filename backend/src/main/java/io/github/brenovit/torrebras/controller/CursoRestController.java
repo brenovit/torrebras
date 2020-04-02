@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.brenovit.torrebras.models.Curso;
-import io.github.brenovit.torrebras.repository.CursoRepository;
+import io.github.brenovit.torrebras.payload.curso.CursoRequest;
+import io.github.brenovit.torrebras.payload.curso.CursoResponse;
+import io.github.brenovit.torrebras.service.CursoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,32 +26,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CursoRestController {
 
-	private final CursoRepository repository;
+	private final CursoService service;
 		
 	@GetMapping	
-	public ResponseEntity<List<Curso>> findAll() {
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<CursoResponse>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}		
 
 	@PostMapping
-	public ResponseEntity<Curso> create(@Valid @RequestBody Curso product) {
-		return ResponseEntity.ok(repository.save(product));
+	public ResponseEntity<CursoResponse> create(@Valid @RequestBody CursoRequest curso) {
+		return ResponseEntity.ok(service.save(curso));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Curso> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(repository.findById(id).get());
+	public ResponseEntity<CursoResponse> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(service.findById(id));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Curso> update(@PathVariable Long id, @Valid @RequestBody Curso curso) {
-		curso.setId(id);
-		return ResponseEntity.ok(repository.save(curso));
+	public ResponseEntity<CursoResponse> update(@PathVariable Long id, @Valid @RequestBody CursoRequest curso) {
+		return ResponseEntity.ok(service.update(id, curso));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }
