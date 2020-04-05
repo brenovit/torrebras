@@ -1,0 +1,77 @@
+package io.github.brenovit.torrebras.models;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+@Entity
+@Table(	name = "usuario", 
+		uniqueConstraints = { 
+			@UniqueConstraint(columnNames = "username"),
+			@UniqueConstraint(columnNames = "email") 
+		})
+@Data
+@NoArgsConstructor
+@Accessors(chain=true)
+public class Usuario {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@NotBlank
+	@Size(max = 20)
+	private String username;
+
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	private String email;
+
+	@NotBlank
+	@Size(max = 120)
+	private String senha;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "permissoes_usuario", 
+				joinColumns = @JoinColumn(name = "usuario_id"), 
+				inverseJoinColumns = @JoinColumn(name = "permissao_id"))
+	private Set<Permission> permissoes = new HashSet<>();
+	
+	@CreationTimestamp
+	private Date dataCriacao;	
+	@UpdateTimestamp
+	private Date dataAtualizacao;
+	
+	public Usuario(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
+		this.senha = password;
+	}
+
+	public boolean hasPermission(EPermission role) {		
+		return permissoes.contains(role);
+	}
+	
+}
