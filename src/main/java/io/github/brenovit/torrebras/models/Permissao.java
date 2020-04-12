@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="permission")
+@Table(name="permissao")
 @NoArgsConstructor
-public class Permission {
+public class Permissao {
 	
 	@Id
 	@Basic
 	private Long id;
 
-	private String description;
+	private String descricao;
 	
 	@Transient
 	private EPermission permission;

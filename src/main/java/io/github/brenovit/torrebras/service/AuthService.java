@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.brenovit.torrebras.exception.ApplicationException;
 import io.github.brenovit.torrebras.models.EPermission;
-import io.github.brenovit.torrebras.models.Permission;
+import io.github.brenovit.torrebras.models.Permissao;
 import io.github.brenovit.torrebras.models.Status;
 import io.github.brenovit.torrebras.models.Usuario;
 import io.github.brenovit.torrebras.payload.auth.SignInRequest;
@@ -61,7 +61,7 @@ public class AuthService extends InternalService {
 		List<String> permissions = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		SignInResponse response = new SignInResponse(jwt, userDetails.getId(), userDetails.getUsername(),
+		SignInResponse response = new SignInResponse(jwt, userDetails.getUsername(),
 				userDetails.getEmail(), permissions);
 		return response;
 	}
@@ -76,10 +76,10 @@ public class AuthService extends InternalService {
 		Usuario user = new Usuario().setUsername(request.getUsername()).setEmail(request.getEmail())
 				.setSenha(encoder.encode(request.getPassword())).setStatus(Status.INATIVO);
 
-		Set<Permission> roles = new HashSet<>();
-		List<Permission> localRoles = roleRepository.findAll();
+		Set<Permissao> roles = new HashSet<>();
+		List<Permissao> localRoles = roleRepository.findAll();
 
-			Permission userRole = localRoles.stream()
+			Permissao userRole = localRoles.stream()
 					.filter(localRole -> localRole.getPermission() == EPermission.USER).findFirst()
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);

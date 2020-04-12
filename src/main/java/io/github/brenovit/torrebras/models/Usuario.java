@@ -62,7 +62,7 @@ public class Usuario {
 	@JoinTable(	name = "permissoes_usuario", 
 				joinColumns = @JoinColumn(name = "usuario_id"), 
 				inverseJoinColumns = @JoinColumn(name = "permissao_id"))
-	private Set<Permission> permissoes = new HashSet<>();
+	private Set<Permissao> permissoes = new HashSet<>();
 	
 	@CreationTimestamp
 	private Date dataCriacao;	
