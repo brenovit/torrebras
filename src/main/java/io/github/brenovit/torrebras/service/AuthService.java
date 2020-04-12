@@ -74,7 +74,7 @@ public class AuthService extends InternalService {
 		}
 
 		Usuario user = new Usuario().setUsername(request.getUsername()).setEmail(request.getEmail())
-				.setSenha(encoder.encode(request.getPassword())).setStatus(Status.INATIVO);
+				.setSenha(encoder.encode(request.getSenha())).setStatus(Status.INATIVO).setNome(request.getNome());
 
 		Set<Permissao> roles = new HashSet<>();
 		List<Permissao> localRoles = roleRepository.findAll();

@@ -50,6 +50,10 @@ public class Usuario {
 	@Size(max = 50)
 	@Email
 	private String email;
+	
+	private String nome;
+	
+	private String cpf;	
 
 	@NotBlank
 	@Size(max = 120)

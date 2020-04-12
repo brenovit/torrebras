@@ -16,9 +16,9 @@ import io.github.brenovit.torrebras.payload.auth.SignUpRequest;
 import io.github.brenovit.torrebras.payload.response.MessageResponse;
 import io.github.brenovit.torrebras.service.AuthService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
 
 	@Autowired
