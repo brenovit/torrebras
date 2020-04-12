@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.github.brenovit.torrebras.models.Status;
 import io.github.brenovit.torrebras.models.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,9 @@ public class UserDetailsImpl implements UserDetails{
 	private String username;
 
 	private String email;
-
+	
+	private Status status;
+	
 	@JsonIgnore
 	private String password;
 	
@@ -39,7 +42,8 @@ public class UserDetailsImpl implements UserDetails{
 		return new UserDetailsImpl(
 				user.getId(),
 				user.getUsername(), 
-				user.getEmail(), 
+				user.getEmail(),
+				user.getStatus(),
 				user.getSenha(), 
 				authorities);
 	}
@@ -67,7 +71,7 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return !this.status.equals(Status.BLOQUEADO);
 	}
 
 	@Override
@@ -77,6 +81,6 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return this.status.equals(Status.ATIVO);
 	}
 }

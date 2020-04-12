@@ -21,7 +21,7 @@ import io.github.brenovit.torrebras.service.FuncaoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/cursos")
+@RequestMapping("/api/v1/funcoes")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class FuncaoRestController {

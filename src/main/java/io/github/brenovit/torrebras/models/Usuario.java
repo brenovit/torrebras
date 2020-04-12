@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,6 +54,9 @@ public class Usuario {
 	@NotBlank
 	@Size(max = 120)
 	private String senha;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private Status status;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "permissoes_usuario", 
@@ -70,6 +75,7 @@ public class Usuario {
 		this.senha = password;
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	public boolean hasPermission(EPermission role) {		
 		return permissoes.contains(role);
 	}

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.brenovit.torrebras.models.Usuario;
-import io.github.brenovit.torrebras.repository.UserRepository;
+import io.github.brenovit.torrebras.repository.UsuarioRepository;
 
 @Service
 public class UserService extends InternalService {
 		
 	@Autowired
-	private UserRepository userRepository;
+	private UsuarioRepository userRepository;
 
 	public Optional<Usuario> findByUsername(String username) {
 		return userRepository.findByUsername(username);

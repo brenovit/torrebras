@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -82,6 +84,20 @@ public class ExceptionHandle {
 		log.error(ex.getMessage(), ex);		
 		ApiError apiErros = new ApiError(ErrorCode.INVALID_CREDENTIAL);
 		return new ResponseEntity<ApiError>(apiErros, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(DisabledException.class)
+	public ResponseEntity<ApiError> processValidationError(DisabledException ex) {
+		log.error(ex.getMessage(), ex);		
+		ApiError apiErros = new ApiError(ErrorCode.USER_DISABLED);
+		return new ResponseEntity<ApiError>(apiErros, HttpStatus.UNAUTHORIZED);
+	}
+	
+	@ExceptionHandler(LockedException.class)
+	public ResponseEntity<ApiError> processValidationError(LockedException ex) {
+		log.error(ex.getMessage(), ex);		
+		ApiError apiErros = new ApiError(ErrorCode.USER_BLOCKED);
+		return new ResponseEntity<ApiError>(apiErros, HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
