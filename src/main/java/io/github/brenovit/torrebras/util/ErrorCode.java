@@ -4,7 +4,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 public enum ErrorCode {	
-	RESOURCE_NOT_FOUND("404"),	
+	UNAUTHORIZED("401"),
+	RESOURCE_NOT_FOUND("404"),
+	METHOD_NOT_ALLOWED("405"),
 	INCORRECT_SIZE_FIELD("901"),
 	INCORRECT_FORMAT_FIELD("902"),
 	INVALID_FIELD("903"),

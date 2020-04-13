@@ -17,7 +17,7 @@ public class InternalService {
 	private JwtUtils jwtUtils;
 	
 	@Autowired
-	private UserService userService;
+	private UsuarioService userService;
 		
 	public Usuario getLoggedUser() {
 		String userName = jwtUtils.getUserNameFromJwtToken(headerHelper.getAuthorization());

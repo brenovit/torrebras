@@ -17,22 +17,20 @@ public class FuncaoMapper {
         mapperFactory = new DefaultMapperFactory.Builder().build();
     }
 
-    public Funcao parse(FuncaoRequest request){    	
+    public static Funcao parse(FuncaoRequest request){    	
     	mapperFactory.classMap(FuncaoRequest.class, Funcao.class)
-    	.field("categoryId", "category.id")
     	.register();
         return mapperFactory.getMapperFacade().map(request, Funcao.class);
     }
   
-    public FuncaoResponse parse(Funcao request){
+    public static FuncaoResponse parse(Funcao request){
     	mapperFactory
     	.classMap(Funcao.class, FuncaoResponse.class)
-    	.field("category.id", "categoryId").byDefault()
     	.register();
         return mapperFactory.getMapperFacade().map(request, FuncaoResponse.class);
     }
     
-	public List<FuncaoResponse> parse(List<Funcao> request) {
+	public static List<FuncaoResponse> parse(List<Funcao> request) {
 		mapperFactory.classMap(Funcao.class, FuncaoResponse.class)
 		.field("category.id", "categoryId").byDefault()
     	.register();

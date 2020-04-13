@@ -7,9 +7,11 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -47,7 +49,6 @@ public class ExceptionHandle {
 		log.error(ex.getMessage(), ex);
 		ApiError apiErros = new ApiError(ex.getCode(), ex.getMessage());		
 		return new ResponseEntity<ApiError>(apiErros, HttpStatus.UNAUTHORIZED);
-
 	}
 
 	@ExceptionHandler(ValidationException.class)
@@ -105,5 +106,19 @@ public class ExceptionHandle {
 		log.error(ex.getMessage(), ex);		
 		ApiError apiErros = new ApiError(ex.getCode(), ex.getMessage());
 		return new ResponseEntity<ApiError>(apiErros, HttpStatus.NOT_FOUND);
-	}	
+	}
+	
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ResponseEntity<ApiError> processValidationError(HttpRequestMethodNotSupportedException ex) {
+		log.error(ex.getMessage(), ex);		
+		ApiError apiErros = new ApiError(ErrorCode.METHOD_NOT_ALLOWED);
+		return new ResponseEntity<ApiError>(apiErros, HttpStatus.METHOD_NOT_ALLOWED);
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<ApiError> processValidationError(AccessDeniedException ex) {
+		log.error(ex.getMessage(), ex);		
+		ApiError apiErros = new ApiError(ErrorCode.UNAUTHORIZED);
+		return new ResponseEntity<ApiError>(apiErros, HttpStatus.UNAUTHORIZED);
+	}
 }
