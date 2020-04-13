@@ -9,7 +9,7 @@ import lombok.Data;
 public class UsuarioResponse {
 	
 	private Long id;
-	private String username;
+	private String usuario;
 	private String email;	
 	private String nome;	
 	private String cpf;

@@ -51,7 +51,7 @@ public class AuthService extends InternalService {
 	public SignInResponse signin(@Valid SignInRequest request) {
 		ValidatorRequestFacade.validate(request);
 		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
+				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsuario(), request.getSenha()));
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -61,29 +61,27 @@ public class AuthService extends InternalService {
 		List<String> permissions = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		SignInResponse response = new SignInResponse(jwt, userDetails.getUsername(),
-				userDetails.getEmail(), permissions);
+		SignInResponse response = new SignInResponse(jwt, userDetails.getUsername(), userDetails.getEmail(),
+				permissions);
 		return response;
 	}
 
 	@SneakyThrows
 	public void signup(@Valid SignUpRequest request) {
-		if (userRepository.existsByUsername(request.getUsername())
-				|| userRepository.existsByEmail(request.getEmail())) {
+		ValidatorRequestFacade.validate(request);
+		if (userRepository.existsByUsuario(request.getUsuario()) || userRepository.existsByEmail(request.getEmail())) {
 			throw new ApplicationException(ErrorCode.USER_ALREADY_REGISTERED);
 		}
 
-		Usuario user = new Usuario().setUsername(request.getUsername()).setEmail(request.getEmail())
+		Usuario user = new Usuario().setUsuario(request.getUsuario()).setEmail(request.getEmail())
 				.setSenha(encoder.encode(request.getSenha())).setStatus(Status.INATIVO).setNome(request.getNome());
 
 		Set<Permissao> roles = new HashSet<>();
 		List<Permissao> localRoles = roleRepository.findAll();
 
-			Permissao userRole = localRoles.stream()
-					.filter(localRole -> localRole.getPermission() == EPermission.USER).findFirst()
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(userRole);
-		
+		Permissao userRole = localRoles.stream().filter(localRole -> localRole.getPermission() == EPermission.USER)
+				.findFirst().orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		roles.add(userRole);
 
 		user.setPermissoes(roles);
 		userRepository.save(user);

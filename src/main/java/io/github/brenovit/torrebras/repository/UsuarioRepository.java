@@ -10,9 +10,9 @@ import io.github.brenovit.torrebras.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-	Optional<Usuario> findByUsername(String username);
-    @Query(value="select u from Usuario u where u.username = :username or u.email = :username")    
-	Optional<Usuario> findByUsernameOrEmail(String username);
-	Boolean existsByUsername(String username);
+	Optional<Usuario> findByUsuario(String usuario);
+    @Query(value="select u from Usuario u where u.usuario = :usuario or u.email = :usuario")    
+	Optional<Usuario> findByUsuarioOrEmail(String usuario);
+	Boolean existsByUsuario(String usuario);
 	Boolean existsByEmail(String email);
 }

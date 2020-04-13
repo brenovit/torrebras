@@ -16,21 +16,14 @@ public class ColaboradorMapper {
     }
 
     public static Colaborador parse(ColaboradorRequest request){    	
-    	mapperFactory.classMap(ColaboradorRequest.class, Colaborador.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, Colaborador.class);
     }
   
     public static ColaboradorResponse parse(Colaborador request){
-    	mapperFactory
-    	.classMap(Colaborador.class, ColaboradorResponse.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, ColaboradorResponse.class);
     }
     
 	public static List<ColaboradorResponse> parse(List<Colaborador> request) {
-		mapperFactory.classMap(Colaborador.class, ColaboradorResponse.class)
-    	.register();
 		return mapperFactory.getMapperFacade().mapAsList(request, ColaboradorResponse.class);
 	}
 

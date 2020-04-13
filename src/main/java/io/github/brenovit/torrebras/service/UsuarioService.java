@@ -22,11 +22,11 @@ public class UsuarioService extends InternalService {
 	private UsuarioRepository repository;
 
 	public Optional<Usuario> findByUsername(String username) {
-		return repository.findByUsername(username);
+		return repository.findByUsuario(username);
 	}
 
 	public Optional<Usuario> findByUsernameOrEmail(String username) {		
-		return repository.findByUsernameOrEmail(username);
+		return repository.findByUsuarioOrEmail(username);
 	}
 
 	public void activate(Long id) {

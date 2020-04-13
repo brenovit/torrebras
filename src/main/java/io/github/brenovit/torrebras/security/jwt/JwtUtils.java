@@ -1,9 +1,11 @@
 package io.github.brenovit.torrebras.security.jwt;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import io.github.brenovit.torrebras.security.services.UserDetailsImpl;
@@ -27,11 +29,14 @@ public class JwtUtils {
 	
 	public String generateJwtToken(Authentication authentication) {
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-		
+		final String authorities = authentication.getAuthorities().stream()
+				.map(GrantedAuthority::getAuthority)
+				.collect(Collectors.joining(","));
 		return Jwts.builder()
 				.setSubject(userPrincipal.getUsername())
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
+				.claim("roles", authorities)
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.compact();				
 	}

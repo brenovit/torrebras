@@ -15,15 +15,10 @@ public class UsuarioMapper {
     }
   
     public static UsuarioResponse parse(Usuario request){
-    	mapperFactory
-    	.classMap(Usuario.class, UsuarioResponse.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, UsuarioResponse.class);
     }
     
 	public static List<UsuarioResponse> parse(List<Usuario> request) {
-		mapperFactory.classMap(Usuario.class, UsuarioResponse.class)
-    	.register();
 		return mapperFactory.getMapperFacade().mapAsList(request, UsuarioResponse.class);
 	}
 

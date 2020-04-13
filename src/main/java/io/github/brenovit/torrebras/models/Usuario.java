@@ -30,7 +30,7 @@ import lombok.experimental.Accessors;
 @Entity
 @Table(	name = "usuario", 
 		uniqueConstraints = { 
-			@UniqueConstraint(columnNames = "username"),
+			@UniqueConstraint(columnNames = "usuario"),
 			@UniqueConstraint(columnNames = "email") 
 		})
 @Data
@@ -44,7 +44,7 @@ public class Usuario {
 
 	@NotBlank
 	@Size(max = 20)
-	private String username;
+	private String usuario;
 
 	@NotBlank
 	@Size(max = 50)
@@ -73,10 +73,10 @@ public class Usuario {
 	@UpdateTimestamp
 	private Date dataAtualizacao;
 	
-	public Usuario(String username, String email, String password) {
-		this.username = username;
+	public Usuario(String usuario, String email, String senha) {
+		this.usuario = usuario;
 		this.email = email;
-		this.senha = password;
+		this.senha = senha;
 	}
 
 	@SuppressWarnings("unlikely-arg-type")

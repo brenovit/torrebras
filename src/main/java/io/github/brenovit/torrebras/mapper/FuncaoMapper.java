@@ -18,22 +18,14 @@ public class FuncaoMapper {
     }
 
     public static Funcao parse(FuncaoRequest request){    	
-    	mapperFactory.classMap(FuncaoRequest.class, Funcao.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, Funcao.class);
     }
   
     public static FuncaoResponse parse(Funcao request){
-    	mapperFactory
-    	.classMap(Funcao.class, FuncaoResponse.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, FuncaoResponse.class);
     }
     
 	public static List<FuncaoResponse> parse(List<Funcao> request) {
-		mapperFactory.classMap(Funcao.class, FuncaoResponse.class)
-		.field("category.id", "categoryId").byDefault()
-    	.register();
 		return mapperFactory.getMapperFacade().mapAsList(request, FuncaoResponse.class);
 	}
 

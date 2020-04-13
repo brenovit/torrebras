@@ -16,21 +16,14 @@ public class CursoMapper {
     }
 
     public static Curso parse(CursoRequest request){    	
-    	mapperFactory.classMap(CursoRequest.class, Curso.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, Curso.class);
     }
   
     public static CursoResponse parse(Curso request){
-    	mapperFactory
-    	.classMap(Curso.class, CursoResponse.class)
-    	.register();
         return mapperFactory.getMapperFacade().map(request, CursoResponse.class);
     }
     
 	public static List<CursoResponse> parse(List<Curso> request) {
-		mapperFactory.classMap(Curso.class, CursoResponse.class)
-    	.register();
 		return mapperFactory.getMapperFacade().mapAsList(request, CursoResponse.class);
 	}
 

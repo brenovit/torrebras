@@ -7,8 +7,8 @@ public class SignInValidator extends MultipleFieldValidator<SignInRequest> {
 
 	@Override
 	public void addValidationFor(SignInRequest request) {
-		add(() -> requiredField(request.getLogin(), "login"));
-		add(() -> requiredField(request.getPassword(), "password"));		
+		add(() -> requiredField(request.getUsuario(), "usuario"));
+		add(() -> requiredField(request.getSenha(), "senha"));		
 	}
 
 }
