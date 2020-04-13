@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 @Table(name="permissao")
 @NoArgsConstructor
 public class Permissao {
-	
+	private  static final String ROLE_PREFIX = "ROLE_";
+
 	@Id
 	@Basic
 	private Long id;
@@ -31,5 +32,9 @@ public class Permissao {
 		if(id > 0) {
 			this.permission = EPermission.of(id);
 		}
-	}	
+	}
+	
+	public String getDescricao() {
+		return ROLE_PREFIX+this.descricao;
+	}
 }
