@@ -3,10 +3,10 @@
 
 	<Properties>
 		<Property name="FILE_NAME">
-			./log/torrebras.log
+			./log/torrebrasil.log
 		</Property>
 		<Property name="FILE_PATTERN">
-			./log/old/%d{yyyy-MM-dd}.torrebras.log
+			./log/old/%d{yyyy-MM-dd}.torrebrasil.log
 		</Property>
 		<Property name="LOG_PATTERN">
 			%d{yyyy-MM-dd HH:mm:ss,SSS} %5p [%-20c{1}] : %m%n
@@ -22,7 +22,7 @@
 	<Loggers>
 
 		<!-- Log for customns package -->
-		<Logger name="io.github.brenovit.torrebras" level="DEBUG"
+		<Logger name="io.github.brenovit.torrebrasil" level="DEBUG"
                 additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>

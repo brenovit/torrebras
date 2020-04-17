@@ -6,8 +6,9 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.brenovit.torrebras.models.Usuario;
-import io.github.brenovit.torrebras.payload.usuario.UsuarioResponse;
+import io.github.brenovit.torrebrasil.mapper.UsuarioMapper;
+import io.github.brenovit.torrebrasil.models.Usuario;
+import io.github.brenovit.torrebrasil.payload.usuario.UsuarioResponse;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

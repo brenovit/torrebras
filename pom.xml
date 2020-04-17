@@ -4,13 +4,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.brenovit</groupId>
-	<artifactId>torrebras</artifactId>
+	<artifactId>torrebrasil</artifactId>
 	<version>0.0.1</version>
 	<name>store</name>
 	<description>FullStack CRUD SpringBoot with Angular9</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 		<springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
