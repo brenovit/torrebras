@@ -12,7 +12,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-		<springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+		<springfox-swagger-ui.version>2.10.0</springfox-swagger-ui.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
 		<jjwt.version>0.9.1</jjwt.version>
 		<orika-core.version>1.5.2</orika-core.version>
